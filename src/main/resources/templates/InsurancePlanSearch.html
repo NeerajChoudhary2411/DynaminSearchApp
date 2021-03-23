@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="/https://www.thymeleaf.org/">
+
+<head>
+    <title>Search</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        label {
+            font-weight: bold;
+        }
+        form{
+        	height:150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="card-header bg-primary text-white text-center">
+                <h3>INSURANCE PLAN SEARCH</h3>
+            </div>
+            <div class="card-body">
+                <form th:action="@{/insurance/search}" method="GET">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th>PLAN NAME</th>
+                            <td>
+                                <select name="planName" class="form-control">
+                                    <option value="">-SELECT-</option>
+                                    <option value="SNAP">SNAP</option>
+                                    <option value="CCAP">CCAP</option>
+                                    <option value="MEDICARE">MEDICARE</option>
+                                    <option value="MEDICAID">MEDICAID</option>
+                                    <option value="QHP">QHP</option>
+                                </select>
+                            </td>
+                            <th>PLAN STATUS</th>
+                            <td>
+                                <select name="planStatus" class="form-control">
+                                    <option value="">-SELECT-</option>
+                                    <option value="AP">APPROVED</option>
+                                    <option value="DN">DENY</option>
+                                </select>
+                            </td>
+                        </tr>
+                </table>
+                <div class="text-center">
+                	<button type="submit" class="btn btn-success"><i class="fa fa-search " aria-hidden="true"> </i> Search</button>
+                </div>
+                </form>
+            </div>
+            <div class="card-footer" th:if="${list!=null}">
+            	<div class="bg-secondary text-white text-center">
+            		<h3>INSURANCE PLANS SEARCH RESULT</h3>
+            	</div>
+            	<span><a th:href="@{/insurance/excel(planName=${planName},planStatus=${planStatus})}" class="btn btn-danger"><i
+					class="fa fa-file-excel-o fa-2x" aria-hidden="true"></i></a></span> |
+				<span><a th:href="@{/insurance/pdf(planName=${planName}, planStatus=${planStatus})}" class="btn btn-warning"><i
+					class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a></span>
+				
+				<table class="table table-hover ">
+					<thead class="table table-dark text-white">
+						<tr>
+							<th>PLAN ID</th>
+							<th>PLAN NAME</th>
+							<th>PLAN STATUS</th>
+							<th>START DATE</th>
+							<th>END DATE</th>
+							<th>HOLDER NAME</th>
+							<th>HOLDER SSN</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="ob:${list}">
+							<td th:text="${ob.planId}"></td>
+							<td th:text="${ob.planName}"></td>
+							<td th:text="${ob.planStatus}"></td>
+							<td th:text="${ob.startDate}"></td>
+							<td th:text="${ob.endDate}"></td>
+							<td th:text="${ob.holderName}"></td>
+							<td th:text="${ob.holderSSN}"></td>
+							
+						</tr>
+					</tbody>
+				</table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
