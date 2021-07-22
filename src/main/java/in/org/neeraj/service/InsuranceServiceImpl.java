@@ -15,6 +15,7 @@ public class InsuranceServiceImpl implements IInsuranceService {
 
 	@Override
 	public List<Insurance> getAllInsurancePlan() {
+		System.out.println("SERS");
 		return insuranceRepository.findAll();
 	}
 
