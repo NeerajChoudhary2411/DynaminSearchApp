@@ -31,6 +31,7 @@ public class InsuranceController {
 									@RequestParam(required = false) String planName,
 									@RequestParam(required=false) String planStatus) 
 	{
+		System.out.println("KKKK");
 		if(planName !="" && planStatus !="") {
 			model.addAttribute("list", iInsuranceService.getAllInsurancePlanByPlanNameAndStatus(planName, planStatus));
 			model.addAttribute("planName", planName);
